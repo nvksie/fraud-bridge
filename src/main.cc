@@ -69,7 +69,9 @@ void usage(const string &path)
 	       "\t-X -- user to run as (default: nobody)\n"
 	       "\t-r -- chroot directory (default: /var/empty)\n"
 	       "\t-t -- override ICMP/ICMP6 type (usually no need to change)\n"
-	       "\t-v -- enable verbose mode\n\n", path.c_str(), config::edns0, config::mss, config::useconds);
+	       "\t-a -- override tunnel peer1 ip (default: %s)\n"
+	       "\t-A -- override tunnel peer2 ip (default: %s)\n"
+	       "\t-v -- enable verbose mode\n\n", path.c_str(), config::edns0, config::mss, config::useconds, config::peer1.c_str(), config::peer2.c_str());
 
 	exit(1);
 }
@@ -87,7 +89,7 @@ int main(int argc, char **argv)
 
 	string prog = argv[0];
 
-	while ((r = getopt(argc, argv, "iIuUnNR:L:d:k:D:p:P:vE:S:s:X:r:t:")) != -1) {
+	while ((r = getopt(argc, argv, "iIuUnNR:L:d:k:D:p:P:vE:S:s:X:r:t:a:A:")) != -1) {
 		switch (r) {
 		case 's':
 			config::mss = strtoul(optarg, nullptr, 10);
@@ -161,6 +163,12 @@ int main(int argc, char **argv)
 			break;
 		case 't':
 			config::icmp_type = (uint8_t)strtoul(optarg, nullptr, 10);
+			break;
+		case 'a':
+			config::peer1 = optarg;
+			break;
+		case 'A':
+			config::peer2 = optarg;
 			break;
 		default:
 			usage("fraud-bridge");

@@ -66,6 +66,8 @@ Usage: fraud-bridge <-k key> [-R IP] [-L IP] [-pP port] [-iIuUnN] [-s sz]
 	-X -- user to run as (default: nobody)
 	-r -- chroot directory (default: /var/empty)
 	-t -- override ICMP/ICMP6 type (usually no need to change)
+	-a -- override tunnel peer1 ip (default: 1.2.3.4)
+	-A -- override tunnel peer2 ip (default: 1.2.3.5)
 	-v -- enable verbose mode
 ```
 
